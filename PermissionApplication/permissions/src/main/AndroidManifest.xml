@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.baletu.permissions">
+
+    <application>
+
+        <activity
+            android:name=".ApplyPermissionsActivity"
+            android:label="权限申请"
+            android:screenOrientation="portrait"
+            android:theme="@style/transcutestyle" />
+
+    </application>
+
+
+</manifest>

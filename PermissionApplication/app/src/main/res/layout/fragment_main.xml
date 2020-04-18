@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:text="这是一个Fragment"/>
+
+    <Button
+        android:id="@+id/btn_use_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用Activity来申请权限"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_use_fragment"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_use_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用Fragment来申请权限"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_use_activity" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

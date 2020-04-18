@@ -1,0 +1,6 @@
+ext {
+    keyAlias = 'baletu'
+    keyPassword = 'baletu2015'
+    storeFile = file('../baletu')
+    storePassword = 'baletu2015'
+}
