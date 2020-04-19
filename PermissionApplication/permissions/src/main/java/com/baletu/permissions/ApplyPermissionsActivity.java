@@ -196,7 +196,8 @@ public class ApplyPermissionsActivity extends AppCompatActivity {
      */
     private AppCompatActivity getParentActivity() {
         if (getCallingActivity() != null) {
-            String parentClassName = getCallingActivity().getShortClassName().replaceAll("\\.", "");
+            int lastDotIndex = getCallingActivity().getClassName().lastIndexOf(".");
+            String parentClassName = getCallingActivity().getShortClassName().substring(lastDotIndex + 1);
             callerPackageName = getCallingActivity().getPackageName();
             return ActivityUtil.getCallerActivityInstance(getApplication(), parentClassName);
         }

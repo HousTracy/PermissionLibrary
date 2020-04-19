@@ -61,10 +61,10 @@ public class MainFragment extends Fragment {
         startActivity(intent);
     }
 
-    @PermissionDenied
-    private void permissionDenied() {
-        Toast.makeText(activity.getApplicationContext(), "fragmen来处理拒绝", Toast.LENGTH_LONG).show();
-    }
+//    @PermissionDenied
+//    private void permissionDenied() {
+//        Toast.makeText(activity.getApplicationContext(), "fragmen来处理拒绝", Toast.LENGTH_LONG).show();
+//    }
 
     @Override
     public void onAttach(@NonNull Context context) {
