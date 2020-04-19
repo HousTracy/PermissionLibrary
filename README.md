@@ -2,7 +2,7 @@
 __通过将权限请求单独封装到一个Activity/Fragment中，通过注解调用用户申请权限结果后的逻辑代码__    
 两种方式供君选择哦，如图
 
-!https://github.com/HousTracy/PermissionLibrary/blob/master/PermissionApplication/permission.gif
+![image](https://github.com/HousTracy/PermissionLibrary/blob/master/PermissionApplication/permission.gif)
 
 ##  1.使用方式
 ### 1.1 使用Activity封装方式
