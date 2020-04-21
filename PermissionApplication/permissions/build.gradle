@@ -41,7 +41,7 @@ uploadArchives {
 //            repository(url: uri("../perlibrary"))
             pom {
                 groupId = 'com.baletu.library'
-                version = '1.0.1'
+                version = '1.0.2'
                 artifactId = 'permission'
                 packaging = 'aar'
             }
