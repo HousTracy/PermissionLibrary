@@ -1,6 +1,6 @@
 # PermissionLibrary
 __通过将权限请求单独封装到一个Activity/Fragment中，通过注解调用用户申请权限结果后的逻辑代码__    
-两种方式供君选择哦，如图
+两种方式供君选择哦(__推荐使用Fragment的方式__)，如图
 
 ![image](https://github.com/HousTracy/PermissionLibrary/blob/master/PermissionApplication/permission.gif)
 
@@ -18,20 +18,13 @@ ApplyPermissionManager.startApplyPermission(MainActivity.this, new String[]{Mani
 #### 1.2.2 在Fragment中申请权限
 ```
 ApplyPermissionManager.startApplyPermission(MainFragment.this, new String[]{Manifest.permission.XXX});
-```  
-由于Fragment中申请权限回调的限制，你需要在Fragment依附的Activity中添加如下代码，如果你有BaseActivity类，建议添加到BaseActivity下
 ```
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        FragmentManager fm = getSupportFragmentManager();
-        for (Fragment fragment : fm.getFragments()) {
-            if (fragment != null) {
-                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        }
-    }
+#### 1.2.3 在Adapter或者其他类中申请权限
+
 ```
+ApplyPermissionManager.startApplyPermission(MainActivity.this, TestListAdapter.this, new String[]{Manifest.permission.XXX});
+```
+ 
 ##  2.回调
 ### 2.1 申请成功时
 ```
