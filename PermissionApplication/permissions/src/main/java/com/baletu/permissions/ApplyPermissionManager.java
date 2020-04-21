@@ -78,12 +78,6 @@ public class ApplyPermissionManager extends Fragment {
      */
     private Map<String, String> promptMap = new HashMap<>();
 
-    /**
-     * 构造函数私有化禁止外部调用
-     */
-    private ApplyPermissionManager() {
-
-    }
 
     /**
      * 申请权限

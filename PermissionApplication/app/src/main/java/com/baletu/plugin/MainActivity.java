@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btn_use_fragment = findViewById(R.id.btn_use_fragment);
-        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this,new TestObject(), new String[]{Manifest.permission.CALL_PHONE}));
+        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this,new TestObject(MainActivity.this), new String[]{Manifest.permission.CALL_PHONE}));
 
         Button to_fragment = findViewById(R.id.to_fragment);
         to_fragment.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UseFragmentActivity.class)));
