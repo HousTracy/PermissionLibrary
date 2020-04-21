@@ -1,9 +1,11 @@
 package com.baletu.plugin;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,7 +13,10 @@ import com.baletu.permissions.ApplyPermissionManager;
 import com.baletu.permissions.ApplyPermissionsActivity;
 import com.baletu.permissions.PermissionDenied;
 import com.baletu.permissions.PermissionGranted;
+import com.baletu.permissions.util.ActivityUtil;
 import com.hous.library.R;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btn_use_fragment = findViewById(R.id.btn_use_fragment);
-        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}));
+        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this,new TestObject(), new String[]{Manifest.permission.CALL_PHONE}));
 
         Button to_fragment = findViewById(R.id.to_fragment);
         to_fragment.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UseFragmentActivity.class)));
@@ -49,20 +54,5 @@ public class MainActivity extends AppCompatActivity {
     @PermissionDenied
     private void permissionDenied() {
         Toast.makeText(getApplicationContext(), "activity来处理拒绝", Toast.LENGTH_LONG).show();
-    }
-
-
-    /**
-     * 解决fragment中申请权限不走onRequestPermissionResult回调
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        FragmentManager fm = getSupportFragmentManager();
-        for (Fragment fragment : fm.getFragments()) {
-            if (fragment != null) {
-                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        }
     }
 }

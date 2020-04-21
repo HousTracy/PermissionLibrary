@@ -6,7 +6,7 @@ android {
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -35,15 +35,15 @@ dependencies {
 uploadArchives {
     repositories {
         mavenDeployer {
-//            repository(url: "https://repo.rdc.aliyun.com/repository/71880-release-q8f28T/") {
-//                authentication(userName: 'Ywbf0F', password: 'Gq78zPkdCd')
-//            }
-            repository(url: uri("../perlibrary"))
+            repository(url: "https://repo.rdc.aliyun.com/repository/71880-release-q8f28T/") {
+                authentication(userName: 'Ywbf0F', password: 'Gq78zPkdCd')
+            }
+//            repository(url: uri("../perlibrary"))
             pom {
                 groupId = 'com.baletu.library'
                 version = '1.0.1'
                 artifactId = 'permission'
-                packaging = 'jar'
+                packaging = 'aar'
             }
         }
     }

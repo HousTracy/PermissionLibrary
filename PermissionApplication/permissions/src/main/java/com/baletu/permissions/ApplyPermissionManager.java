@@ -59,7 +59,7 @@ public class ApplyPermissionManager extends Fragment {
     private AppCompatActivity activity;
 
     /**
-     * 调用申请权限的类
+     * 调用申请权限的回调类
      */
     private WeakReference<Object> source;
 
@@ -78,31 +78,53 @@ public class ApplyPermissionManager extends Fragment {
      */
     private Map<String, String> promptMap = new HashMap<>();
 
+    /**
+     * 构造函数私有化禁止外部调用
+     */
+    private ApplyPermissionManager() {
+
+    }
 
     /**
      * 申请权限
      *
-     * @param source      调用者
+     * @param target      调用者
      * @param permissions 申请的权限
      */
-    public static void startApplyPermission(@NonNull Object source, String[] permissions) {
-        startApplyPermission(source, permissions, -1);
+    public static void startApplyPermission(@NonNull Object target, String[] permissions) {
+        AppCompatActivity source = null;
+        if (target instanceof AppCompatActivity) {
+            source = (AppCompatActivity) target;
+        } else if (target instanceof Fragment) {
+            source = (AppCompatActivity) ((Fragment) target).getActivity();
+        }
+        if (source == null) {
+            throw new IllegalArgumentException("The source object is neither an activity or a fragment");
+        }
+        startApplyPermission(source, target, permissions);
     }
 
     /**
      * 申请权限
      *
      * @param source      调用者
+     * @param target      回调拥有者
+     * @param permissions 申请的权限
+     */
+    public static void startApplyPermission(@NonNull AppCompatActivity source, @NonNull Object target, String[] permissions) {
+        startApplyPermission(source, target, permissions, -1);
+    }
+
+    /**
+     * 申请权限
+     *
+     * @param target      回调拥有者
+     * @param source      调用者
      * @param permissions 申请的权限
      * @param requestCode 申请权限成功后用来区分的code
      */
-    public static void startApplyPermission(@NonNull Object source, String[] permissions, int requestCode) {
-        FragmentManager fm;
-        if (source instanceof Fragment) {
-            fm = ((Fragment) source).getChildFragmentManager();
-        } else {
-            fm = ((AppCompatActivity) source).getSupportFragmentManager();
-        }
+    public static void startApplyPermission(@NonNull AppCompatActivity source, @NonNull Object target, String[] permissions, int requestCode) {
+        FragmentManager fm = source.getSupportFragmentManager();
         ApplyPermissionManager manager = (ApplyPermissionManager) fm.findFragmentByTag(FRAGMENT_TAG);
         if (manager == null) {
             manager = new ApplyPermissionManager();
@@ -114,7 +136,7 @@ public class ApplyPermissionManager extends Fragment {
         args.putStringArray(KEY_PERMISSIONS, permissions);
         args.putInt(KEY_REQUEST_CODE, requestCode);
         manager.setArguments(args);
-        manager.init(source);
+        manager.init(target);
     }
 
     /**
@@ -185,11 +207,7 @@ public class ApplyPermissionManager extends Fragment {
                 }
 
             } else {
-                if (source.get() instanceof Fragment) {
-                    requestPermissions(permissions, PermissionSettingUtil.REQUEST_FOR_APPLY_PERMISSION);
-                } else {
-                    ActivityCompat.requestPermissions(activity, permissions, PermissionSettingUtil.REQUEST_FOR_APPLY_PERMISSION);
-                }
+                requestPermissions(permissions, PermissionSettingUtil.REQUEST_FOR_APPLY_PERMISSION);
                 updateRequestPermissionStatus();
             }
         }
@@ -343,9 +361,7 @@ public class ApplyPermissionManager extends Fragment {
                 }
             }
 
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return false;

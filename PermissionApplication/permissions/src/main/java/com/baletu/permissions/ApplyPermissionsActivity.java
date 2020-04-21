@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
  * <p>
  * 使用Activity申请权限
  */
+@Deprecated
 public class ApplyPermissionsActivity extends AppCompatActivity {
 
 

@@ -4,25 +4,27 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import com.baletu.permissions.IgnoreCallback;
 import com.baletu.permissions.PermissionGranted;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 /**
  * Created By Hous on 2020/4/17
  */
 public class ActivityUtil {
-    
-    
+
+
     /**
      * 通过反射获取当前application的activity栈
      * <p>
@@ -32,7 +34,7 @@ public class ActivityUtil {
      * @return activity栈
      */
     @SuppressWarnings("unchecked")
-    private static List<AppCompatActivity> getActivityStackByApplication(@NonNull Application application) {
+    public static List<AppCompatActivity> getActivityStackByApplication(@NonNull Application application) {
         List<AppCompatActivity> stack = new ArrayList<>();
         try {
             //反射获取LoadedApk
@@ -40,19 +42,19 @@ public class ActivityUtil {
             Field mLoadedApkField = mApplicationClass.getDeclaredField("mLoadedApk");
             mLoadedApkField.setAccessible(true);
             Object mLoadedApk = mLoadedApkField.get(application);
-            
+
             //反射获取LoadedApk中ActivityThread实例
             Class<?> mLoadedApkClass = mLoadedApk.getClass();
             Field mActivityThreadField = mLoadedApkClass.getDeclaredField("mActivityThread");
             mActivityThreadField.setAccessible(true);
             Object mActivityThread = mActivityThreadField.get(mLoadedApk);
-            
+
             //反射获取ActivityThread中的mActivities
             Class<?> mActivityThreadClass = mActivityThread.getClass();
             Field mActivitiesField = mActivityThreadClass.getDeclaredField("mActivities");
             mActivitiesField.setAccessible(true);
             Object mActivities = mActivitiesField.get(mActivityThread);
-            
+
             if (mActivities instanceof Map) {
                 Map<Object, Object> map = (Map<Object, Object>) mActivities;
                 for (Map.Entry<Object, Object> entry : map.entrySet()) {
@@ -71,7 +73,7 @@ public class ActivityUtil {
         }
         return stack;
     }
-    
+
     /**
      * 获取调用权限申请类的实例对象
      */
@@ -87,7 +89,27 @@ public class ActivityUtil {
         }
         throw new IllegalStateException("There is no caller activity found in the activity stack, Please check your code");
     }
-    
+
+    /**
+     * 找到目标对象所在的Application
+     *
+     * @param source 目标对象
+     * @return application
+     */
+    public static Object findApplication(Object source) {
+        ClassLoader loader = source.getClass().getClassLoader().getParent();
+        Class<?> mClassLoaderClass = loader.getClass();
+        try {
+            Method mFindClassMethod = mClassLoaderClass.getDeclaredMethod("findClass", String.class);
+            mFindClassMethod.setAccessible(true);
+            return mFindClassMethod.invoke(loader, "android.app.Application");
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalStateException("Can not find the Application class");
+    }
+
+
     /**
      * activity如果有fragment，找到activity处理权限的fragment，如果没有则检查activity有没有处理
      *
@@ -116,7 +138,7 @@ public class ActivityUtil {
         }
         return null;
     }
-    
+
     /**
      * 判断是否相应的注解
      */
@@ -130,7 +152,7 @@ public class ActivityUtil {
         }
         return false;
     }
-    
+
     /**
      * 获取调用者的应用程序名
      */
