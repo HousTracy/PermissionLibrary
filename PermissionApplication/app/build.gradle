@@ -40,7 +40,7 @@ dependencies {
 
     implementation 'com.meituan.android.walle:library:1.1.6'
 
-    implementation 'com.baletu.library:permission:1.0.2'
+//    implementation 'com.baletu.library:permission:1.0.2'
 
-//    implementation project(':permissions')
+    implementation project(':permissions')
 }

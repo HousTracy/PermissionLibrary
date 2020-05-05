@@ -30,10 +30,20 @@
         android:id="@+id/btn_use_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="使用Fragment来申请权限"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="使用Fragment来申请读写权限"
+        app:layout_constraintBottom_toTopOf="@+id/btn_apply_camera"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_use_activity" />
+
+    <Button
+        android:id="@+id/btn_apply_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用Fragment来申请相机权限"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_use_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

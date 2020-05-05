@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.baletu.permissions.ApplyPermissionManager;
 import com.baletu.permissions.ApplyPermissionsActivity;
-import com.baletu.permissions.PermissionDenied;
 import com.baletu.permissions.PermissionGranted;
 import com.hous.library.R;
 
@@ -50,11 +49,15 @@ public class MainFragment extends Fragment {
         btn_use_activity.setOnClickListener(v -> ApplyPermissionsActivity.startApplyPermission(activity, new String[]{Manifest.permission.CALL_PHONE}));
 
         Button btn_use_fragment = view.findViewById(R.id.btn_use_fragment);
-        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainFragment.this, new String[]{Manifest.permission.CALL_PHONE}));
+        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainFragment.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}));
+
+        Button btn_apply_camera = view.findViewById(R.id.btn_apply_camera);
+        btn_apply_camera.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainFragment.this, new String[]{Manifest.permission.CAMERA}));
     }
 
     @PermissionGranted
     private void call() {
+        Toast.makeText(activity.getApplicationContext(), "fragmen来处理申请成功", Toast.LENGTH_LONG).show();
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel:18616372906"));

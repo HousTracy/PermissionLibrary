@@ -1,11 +1,9 @@
 package com.baletu.plugin;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,15 +11,9 @@ import com.baletu.permissions.ApplyPermissionManager;
 import com.baletu.permissions.ApplyPermissionsActivity;
 import com.baletu.permissions.PermissionDenied;
 import com.baletu.permissions.PermissionGranted;
-import com.baletu.permissions.util.ActivityUtil;
 import com.hous.library.R;
 
-import java.util.List;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btn_use_fragment = findViewById(R.id.btn_use_fragment);
-        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this,new TestObject(MainActivity.this), new String[]{Manifest.permission.CALL_PHONE}));
+        btn_use_fragment.setOnClickListener(v -> ApplyPermissionManager.startApplyPermission(MainActivity.this, new TestObject(MainActivity.this), new String[]{Manifest.permission.CALL_PHONE}));
 
         Button to_fragment = findViewById(R.id.to_fragment);
         to_fragment.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, UseFragmentActivity.class)));

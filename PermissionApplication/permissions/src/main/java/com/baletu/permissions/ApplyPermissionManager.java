@@ -155,31 +155,33 @@ public class ApplyPermissionManager extends Fragment {
      * 缺少权限时的对应提示
      */
     private void initLackPermissionPrompt() {
-        String applicationName = ActivityUtil.getCallerApplicationName(activity);
-        //CAMERA权限组
-        promptMap.put(Manifest.permission.CAMERA, String.format("您未允许%s获取手机相机权限，可前往系统设置中开启", applicationName));
-        //CALENDAR权限组
-        promptMap.put(Manifest.permission.READ_CALENDAR, String.format("您未允许%s获取手机日历权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.WRITE_CALENDAR, String.format("您未允许%s获取手机日历权限，可前往系统设置中开启", applicationName));
-        //CONTACTS权限组
-        promptMap.put(Manifest.permission.READ_CONTACTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.WRITE_CONTACTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.GET_ACCOUNTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
-        //LOCATION权限组
-        promptMap.put(Manifest.permission.ACCESS_COARSE_LOCATION, String.format("您未允许%s获取定位权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.ACCESS_FINE_LOCATION, String.format("您未允许%s获取定位权限，可前往系统设置中开启", applicationName));
-        //STORAGE权限组
-        promptMap.put(Manifest.permission.READ_EXTERNAL_STORAGE, String.format("您未允许%s获取SD卡权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, String.format("您未允许%s获取SD卡权限，可前往系统设置中开启", applicationName));
-        //PHONE权限组
-        promptMap.put(Manifest.permission.CALL_PHONE, String.format("您未允许%s获取拨打电话权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.READ_PHONE_STATE, String.format("您未允许%s获取读取手机设置权限，可前往系统设置中开启", applicationName));
-        //SMS权限组
-        promptMap.put(Manifest.permission.SEND_SMS, String.format("您未允许%s获取读取手机发送短信权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.RECEIVE_SMS, String.format("您未允许%s获取读取收取短信权限，可前往系统设置中开启", applicationName));
-        promptMap.put(Manifest.permission.READ_SMS, String.format("您未允许%s获取读取手机短信权限，可前往系统设置中开启", applicationName));
-        //MICROPHONE权限组
-        promptMap.put(Manifest.permission.RECORD_AUDIO, String.format("您未允许%s获取麦克风权限，可前往系统设置中开启", applicationName));
+        if (promptMap.size() == 0) {
+            String applicationName = ActivityUtil.getCallerApplicationName(activity);
+            //CAMERA权限组
+            promptMap.put(Manifest.permission.CAMERA, String.format("您未允许%s获取手机相机权限，可前往系统设置中开启", applicationName));
+            //CALENDAR权限组
+            promptMap.put(Manifest.permission.READ_CALENDAR, String.format("您未允许%s获取手机日历权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.WRITE_CALENDAR, String.format("您未允许%s获取手机日历权限，可前往系统设置中开启", applicationName));
+            //CONTACTS权限组
+            promptMap.put(Manifest.permission.READ_CONTACTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.WRITE_CONTACTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.GET_ACCOUNTS, String.format("您未允许%s获取读取通讯录权限，可前往系统设置中开启", applicationName));
+            //LOCATION权限组
+            promptMap.put(Manifest.permission.ACCESS_COARSE_LOCATION, String.format("您未允许%s获取定位权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.ACCESS_FINE_LOCATION, String.format("您未允许%s获取定位权限，可前往系统设置中开启", applicationName));
+            //STORAGE权限组
+            promptMap.put(Manifest.permission.READ_EXTERNAL_STORAGE, String.format("您未允许%s获取SD卡权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, String.format("您未允许%s获取SD卡权限，可前往系统设置中开启", applicationName));
+            //PHONE权限组
+            promptMap.put(Manifest.permission.CALL_PHONE, String.format("您未允许%s获取拨打电话权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.READ_PHONE_STATE, String.format("您未允许%s获取读取手机设置权限，可前往系统设置中开启", applicationName));
+            //SMS权限组
+            promptMap.put(Manifest.permission.SEND_SMS, String.format("您未允许%s获取读取手机发送短信权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.RECEIVE_SMS, String.format("您未允许%s获取读取收取短信权限，可前往系统设置中开启", applicationName));
+            promptMap.put(Manifest.permission.READ_SMS, String.format("您未允许%s获取读取手机短信权限，可前往系统设置中开启", applicationName));
+            //MICROPHONE权限组
+            promptMap.put(Manifest.permission.RECORD_AUDIO, String.format("您未允许%s获取麦克风权限，可前往系统设置中开启", applicationName));
+        }
     }
 
 
@@ -202,7 +204,7 @@ public class ApplyPermissionManager extends Fragment {
 
             } else {
                 requestPermissions(permissions, PermissionSettingUtil.REQUEST_FOR_APPLY_PERMISSION);
-                updateRequestPermissionStatus();
+                updateRequestPermissionStatus(true);
             }
         }
     }
@@ -232,7 +234,7 @@ public class ApplyPermissionManager extends Fragment {
         } else {
             //为false表示用户点了禁止但没有勾选不再询问
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, lackPermission)) {
-                updatePermissionRationaleStatus();
+                updatePermissionRationaleStatus(true);
             } else {
                 if (!findPermissionCallback(PermissionDenied.class)) {
                     showPermissionSetting();
@@ -244,13 +246,13 @@ public class ApplyPermissionManager extends Fragment {
     /**
      * 调用者勾选了不再询问
      */
-    private void updatePermissionRationaleStatus() {
+    private void updatePermissionRationaleStatus(boolean status) {
         if (activity.getIntent() == null) {
             Intent intent = new Intent();
-            intent.putExtra("request_permission_rationale", true);
+            intent.putExtra("request_permission_rationale", status);
             activity.setIntent(intent);
         } else {
-            activity.getIntent().putExtra("request_permission_rationale", true);
+            activity.getIntent().putExtra("request_permission_rationale", status);
         }
     }
 
@@ -269,13 +271,13 @@ public class ApplyPermissionManager extends Fragment {
     /**
      * 调用者已申请过权限
      */
-    private void updateRequestPermissionStatus() {
+    private void updateRequestPermissionStatus(boolean status) {
         if (activity.getIntent() == null) {
             Intent intent = new Intent();
-            intent.putExtra("has_request_permission", true);
+            intent.putExtra("has_request_permission", status);
             activity.setIntent(intent);
         } else {
-            activity.getIntent().putExtra("has_request_permission", true);
+            activity.getIntent().putExtra("has_request_permission", status);
         }
     }
 
@@ -357,6 +359,10 @@ public class ApplyPermissionManager extends Fragment {
 
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
+
+        } finally {
+            updateRequestPermissionStatus(false);
+            updatePermissionRationaleStatus(false);
         }
         return false;
     }
